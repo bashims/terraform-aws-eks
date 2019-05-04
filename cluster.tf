@@ -28,6 +28,12 @@ resource "aws_security_group" "cluster" {
   description = "EKS cluster security group."
   vpc_id      = "${var.vpc_id}"
   tags        = "${merge(var.tags, map("Name", "${var.cluster_name}-eks_cluster_sg"))}"
+  count       = "${var.cluster_create_security_group ? 1 : 0}"
+
+  timeouts {
+    create = "${var.cluster_create_timeout}"
+    delete = "${var.cluster_delete_timeout}"
+  }
 }
 
 resource "aws_security_group_rule" "cluster_egress_internet" {

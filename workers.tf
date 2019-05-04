@@ -68,6 +68,11 @@ resource "aws_security_group" "workers" {
   vpc_id      = "${var.vpc_id}"
   tags        = "${merge(var.tags, map("Name", "${aws_eks_cluster.this.name}-eks_worker_sg", "kubernetes.io/cluster/${aws_eks_cluster.this.name}", "owned"
   ))}"
+
+  timeouts {
+    create = "${var.cluster_create_timeout}"
+    delete = "${var.cluster_delete_timeout}"
+  }
 }
 
 resource "aws_security_group_rule" "workers_egress_internet" {
