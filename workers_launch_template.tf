@@ -157,7 +157,6 @@ resource "aws_autoscaling_group" "workers_launch_template" {
             instance_type = override.value
           }
         }
-
       }
     }
   }
@@ -226,6 +225,18 @@ resource "aws_autoscaling_group" "workers_launch_template" {
       key                 = tag.value.key
       value               = tag.value.value
       propagate_at_launch = tag.value.propagate_at_launch
+    }
+  }
+
+  dynamic "instance_refresh" {
+    for_each = var.worker_enable_instance_refresh ? [1] : []
+    content {
+      strategy = local.workers_group_defaults["instance_refresh_strategy"]
+      preferences {
+        instance_warmup        = local.workers_group_defaults["instance_refresh_instance_warmup"]
+        min_healthy_percentage = local.workers_group_defaults["instance_refresh_min_healthy_percentage"]
+      }
+      triggers = local.workers_group_defaults["instance_refresh_triggers"]
     }
   }
 

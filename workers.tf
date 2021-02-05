@@ -153,6 +153,18 @@ resource "aws_autoscaling_group" "workers" {
     }
   }
 
+  dynamic "instance_refresh" {
+    for_each = var.worker_enable_instance_refresh ? [1] : []
+    content {
+      strategy = local.workers_group_defaults["instance_refresh_strategy"]
+      preferences {
+        instance_warmup        = local.workers_group_defaults["instance_refresh_instance_warmup"]
+        min_healthy_percentage = local.workers_group_defaults["instance_refresh_min_healthy_percentage"]
+      }
+      triggers = local.workers_group_defaults["instance_refresh_triggers"]
+    }
+  }
+
   lifecycle {
     create_before_destroy = true
     ignore_changes        = [desired_capacity]

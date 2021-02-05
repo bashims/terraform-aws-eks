@@ -163,6 +163,11 @@ variable "workers_additional_policies" {
   default     = []
 }
 
+variable "worker_enable_instance_refresh" {
+  description = "Enable instance refresh for the worker autoscaling group. Refresh preferences can be overridden in workers_group_defaults. All keys start with 'instance_refresh_'"
+  default     = false
+}
+
 variable "kubeconfig_aws_authenticator_command" {
   description = "Command to use to fetch AWS EKS credentials."
   type        = string

@@ -145,7 +145,7 @@ MIT Licensed. See [LICENSE](https://github.com/terraform-aws-modules/terraform-a
 | Name | Version |
 |------|---------|
 | terraform | >= 0.12.9, != 0.13.0 |
-| aws | >= 3.22.0 |
+| aws | >= 3.26.0 |
 | kubernetes | >= 1.11.1 |
 | local | >= 1.4 |
 | null | >= 2.1 |
@@ -156,7 +156,7 @@ MIT Licensed. See [LICENSE](https://github.com/terraform-aws-modules/terraform-a
 
 | Name | Version |
 |------|---------|
-| aws | >= 3.22.0 |
+| aws | >= 3.26.0 |
 | kubernetes | >= 1.11.1 |
 | local | >= 1.4 |
 | null | >= 2.1 |
@@ -221,6 +221,7 @@ MIT Licensed. See [LICENSE](https://github.com/terraform-aws-modules/terraform-a
 | worker\_create\_cluster\_primary\_security\_group\_rules | Whether to create security group rules to allow communication between pods on workers and pods using the primary cluster security group. | `bool` | `false` | no |
 | worker\_create\_initial\_lifecycle\_hooks | Whether to create initial lifecycle hooks provided in worker groups. | `bool` | `false` | no |
 | worker\_create\_security\_group | Whether to create a security group for the workers or attach the workers to `worker_security_group_id`. | `bool` | `true` | no |
+| worker\_enable\_instance\_refresh | Enable instance refresh for the worker autoscaling group. Refresh preferences can be overridden in workers\_group\_defaults. All keys start with 'instance\_refresh\_' | `bool` | `false` | no |
 | worker\_groups | A list of maps defining worker group configurations to be defined using AWS Launch Configurations. See workers\_group\_defaults for valid keys. | `any` | `[]` | no |
 | worker\_groups\_launch\_template | A list of maps defining worker group configurations to be defined using AWS Launch Templates. See workers\_group\_defaults for valid keys. | `any` | `[]` | no |
 | worker\_security\_group\_id | If provided, all workers will be attached to this security group. If not given, a security group will be created with necessary ingress/egress to work with the EKS cluster. | `string` | `""` | no |
